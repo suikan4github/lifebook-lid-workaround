@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #SUSPEND_MODE=suspend
+# shellcheck disable=SC2034
 SUSPEND_MODE=suspend-then-hibernate
 #SUSPEND_MODE=hibernate
 

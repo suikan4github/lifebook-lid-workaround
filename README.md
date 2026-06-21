@@ -67,7 +67,7 @@ sudo systemctl start --now lid-monitor.service
 # Configuration
 By default, the lid-monitor.service puts the system into suspend when the lid is closed. 
 
-If you want to put the system into the hibernate or suspend-then-hibernate, edit the top of the `lifebook-lid-workaround.sh` script. Un comment the line to choose the desired state : 
+If you want to put the system into the hibernate or suspend-then-hibernate, edit the top of the `lifebook-lid-workaround.sh` script. Uncomment the line to choose the desired state : 
 ```sh
 SUSPEND_MODE=suspend
 #SUSPEND_MODE=suspend-then-hibernate

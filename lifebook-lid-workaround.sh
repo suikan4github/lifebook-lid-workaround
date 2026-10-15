@@ -18,12 +18,19 @@ echo \$\$ > "\$PIDFILE"
 
 LID_STATE_FILE="/proc/acpi/button/lid/LID/state"
 
+# logind reports docked when a dock or external display is connected.
+is_docked() {
+    [ "\$(busctl get-property org.freedesktop.login1 /org/freedesktop/login1 \\
+        org.freedesktop.login1.Manager Docked 2>/dev/null)" = "b true" ]
+}
+
 while true; do
     if [ -f "\$LID_STATE_FILE" ]; then
         # Obtain lid state (open/closed)
         STATE=\$(awk '{print \$2}' "\$LID_STATE_FILE")
 
-        if [ "\$STATE" = "closed" ]; then
+        # Stay awake with the lid closed while docked.
+        if [ "\$STATE" = "closed" ] && ! is_docked; then
             # Choose one of the three commands as a sleep action.
             systemctl $SUSPEND_MODE
             # Just after resume, sleep 5 seconds to prevent the false closed-state detection.
